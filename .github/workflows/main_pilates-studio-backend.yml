@@ -1,0 +1,24 @@
+name: Build and run tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up .net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+          
+      - name: install deps and build
+        run: dotnet build
+        
+      - name: run tests
+        run: dotnet test
