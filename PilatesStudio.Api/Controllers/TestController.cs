@@ -17,20 +17,6 @@ public class TestController(DemoRepository repository) : ControllerBase
         
         return Ok(hello);
     }
-    
-    [HttpGet]
-    [Route("ConnectionString")]
-    public ActionResult<string> GetConnectionString()
-    {
-        var builder = WebApplication.CreateBuilder();
-
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-        if (connectionString == null)
-            return NotFound();
-        
-        return Ok(connectionString);
-    }
 
     [HttpGet("{name}")] 
     public async Task<ActionResult<DemoResponseDto>> GetDemo(string name)
