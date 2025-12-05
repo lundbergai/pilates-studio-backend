@@ -7,10 +7,24 @@ namespace PilatesStudio.Api.Controllers;
 public class TestController : ControllerBase
 {
     [HttpGet]
-    public ActionResult Get()
+    public ActionResult<string> GetHelloWorld()
     {
         var hello = "Hello World";
         
         return Ok(hello);
+    }
+    
+    [HttpGet]
+    [Route("ConnectionString")]
+    public ActionResult<string> GetConnectionString()
+    {
+        var builder = WebApplication.CreateBuilder();
+
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+        if (connectionString == null)
+            return NotFound();
+        
+        return Ok(connectionString);
     }
 }
