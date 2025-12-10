@@ -11,7 +11,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PilatesDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<DemoRepository>();
 builder.Services.AddScoped<IClassTypesRepository, ClassTypesRepository>();
 
 var app = builder.Build();
