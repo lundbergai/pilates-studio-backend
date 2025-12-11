@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using PilatesStudio.Application.Interfaces;
 using PilatesStudio.Infrastructure.Persistence;
@@ -13,6 +14,14 @@ builder.Services.AddDbContext<PilatesDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IClassTypesRepository, ClassTypesRepository>();
 builder.Services.AddScoped<IScheduledClassRepository, ScheduledClassRepository>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["Clerk:Issuer"];
+    options.Audience = builder.Configuration["Clerk:Audience"];
+});
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -39,8 +48,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
-
-app.Run(); 
+app.Run();
 
 public partial class Program { }
