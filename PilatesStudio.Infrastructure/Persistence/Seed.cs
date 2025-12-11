@@ -21,5 +21,25 @@ namespace PilatesStudio.Infrastructure.Persistence
             context.ClassTypes.AddRange(classTypes);
             context.SaveChanges();
         }
+        
+        public static void ApplyScheduledClassesSeed(PilatesDbContext context)
+        {
+            if (context.ScheduledClasses.Any())
+                return;
+
+            var now = DateTime.UtcNow;
+            var scheduledClasses = new List<ScheduledClass>
+            {
+                new ScheduledClass { ClassTypeId = 1, StartTime = now.AddDays(1).AddHours(8), BookedSpots = 0, CreatedAt = now, UpdatedAt = now },
+                new ScheduledClass { ClassTypeId = 2, StartTime = now.AddDays(1).AddHours(10), BookedSpots = 3, CreatedAt = now, UpdatedAt = now },
+                new ScheduledClass { ClassTypeId = 3, StartTime = now.AddDays(1).AddHours(14), BookedSpots = 5, CreatedAt = now, UpdatedAt = now },
+                new ScheduledClass { ClassTypeId = 4, StartTime = now.AddDays(2).AddHours(9), BookedSpots = 2, CreatedAt = now, UpdatedAt = now },
+                new ScheduledClass { ClassTypeId = 1, StartTime = now.AddDays(2).AddHours(16), BookedSpots = 8, CreatedAt = now, UpdatedAt = now },
+                new ScheduledClass { ClassTypeId = 2, StartTime = now.AddDays(3).AddHours(11), BookedSpots = 0, CreatedAt = now, UpdatedAt = now }
+            };
+
+            context.ScheduledClasses.AddRange(scheduledClasses);
+            context.SaveChanges();
+        }
     }
 }
