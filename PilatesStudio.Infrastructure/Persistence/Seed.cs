@@ -41,5 +41,74 @@ namespace PilatesStudio.Infrastructure.Persistence
             context.ScheduledClasses.AddRange(scheduledClasses);
             context.SaveChanges();
         }
+        
+        public static void ApplyUsersSeed(PilatesDbContext context)
+        {
+            if (context.Users.Any())
+                return;
+        
+            var now = DateTime.UtcNow;
+            var users = new List<User>
+            {
+                new User
+                {
+                    FullName = "Admin User",
+                    Email = "admin@pilatesstudio.com",
+                    ClerkUserId = null,
+                    IsAdmin = true,
+                    IsInstructor = false,
+                    IsMember = false,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                },
+                new User
+                {
+                    FullName = "Sarah Johnson",
+                    Email = "sarah.johnson@pilatesstudio.com",
+                    ClerkUserId = null,
+                    IsAdmin = false,
+                    IsInstructor = true,
+                    IsMember = false,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                },
+                new User
+                {
+                    FullName = "John Smith",
+                    Email = "john.smith@example.com",
+                    ClerkUserId = null, 
+                    IsAdmin = false,
+                    IsInstructor = false,
+                    IsMember = true,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                },
+                new User
+                {
+                    FullName = "Emma Wilson",
+                    Email = "emma.wilson@pilatesstudio.com",
+                    ClerkUserId = null,
+                    IsAdmin = false,
+                    IsInstructor = true,
+                    IsMember = true,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                },
+                new User
+                {
+                    FullName = "Guest User",
+                    Email = "guest@example.com",
+                    ClerkUserId = null,
+                    IsAdmin = false,
+                    IsInstructor = false,
+                    IsMember = false,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                }
+            };
+        
+            context.Users.AddRange(users);
+            context.SaveChanges();
+        }
     }
 }

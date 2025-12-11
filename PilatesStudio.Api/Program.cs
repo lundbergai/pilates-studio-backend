@@ -14,6 +14,7 @@ builder.Services.AddDbContext<PilatesDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IClassTypesRepository, ClassTypesRepository>();
 builder.Services.AddScoped<IScheduledClassRepository, ScheduledClassRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -41,6 +42,7 @@ if (app.Environment.IsDevelopment())
         await context.Database.MigrateAsync();
         Seed.ApplyClassTypesSeed(context);
         Seed.ApplyScheduledClassesSeed(context);
+        Seed.ApplyUsersSeed(context);
     }
     
     app.UseSwagger();
