@@ -20,4 +20,38 @@ public class ScheduledClassesController(IScheduledClassRepository repository) : 
 
         return Ok(ScheduledClassDto.FromScheduledClasses(classes));
     }
+    
+    [HttpPost]
+    [Authorize(Roles = "admin")]
+    public async Task<ActionResult<ScheduledClassDto>> Create([FromBody] CreateScheduledClassDto dto)
+    {
+        var scheduledClass = await _repository.CreateAsync(dto);
+        var response = ScheduledClassDto.FromScheduledClass(scheduledClass);
+        
+        return CreatedAtAction(nameof(GetAll), new { id = scheduledClass.Id }, response);
+    }
+    
+    [HttpPatch("{id}")]
+    [Authorize(Roles = "admin")]
+    public async Task<ActionResult<ScheduledClassDto>> Update(int id, [FromBody] UpdateScheduledClassDto dto)
+    {
+        var scheduledClass = await _repository.UpdateAsync(id, dto);
+        
+        if (scheduledClass == null)
+            return NotFound();
+        
+        return Ok(ScheduledClassDto.FromScheduledClass(scheduledClass));
+    }
+    
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var success = await _repository.DeleteAsync(id);
+        
+        if (!success)
+            return NotFound();
+        
+        return NoContent();
+    }
 }

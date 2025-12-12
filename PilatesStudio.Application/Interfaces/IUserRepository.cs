@@ -7,4 +7,5 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetAllAsync();
     Task<User?> GetByClerkIdAsync(string clerkId);
     Task<User> AddAsync(User user);
+    Task<IEnumerable<User>> GetInstructorsByRoleAsync();
 }
