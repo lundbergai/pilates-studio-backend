@@ -52,7 +52,7 @@ namespace PilatesStudio.Infrastructure.Persistence
             {
                 new User
                 {
-                    FullName = "Admin User",
+                    FullName = "Local Admin",
                     Email = "admin@pilatesstudio.com",
                     ClerkUserId = null,
                     IsAdmin = true,

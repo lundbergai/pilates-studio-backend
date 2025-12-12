@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PilatesStudio.Application.Dtos;
 using PilatesStudio.Application.Interfaces;
@@ -11,6 +12,8 @@ public class ScheduledClassesController(IScheduledClassRepository repository) : 
     private readonly IScheduledClassRepository _repository = repository;
 
     [HttpGet]
+    [Authorize]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<ScheduledClassDto>>> GetAll()
     {
         var classes = await _repository.GetAllAsync();

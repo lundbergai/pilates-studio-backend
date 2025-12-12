@@ -13,4 +13,17 @@ public class UserRepository(PilatesDbContext context) : IUserRepository
     {
         return await _context.Users.ToListAsync();
     }
+
+    public async Task<User?> GetByClerkIdAsync(string clerkId)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => string.Equals(u.ClerkUserId, clerkId));
+    }
+
+    public async Task<User> AddAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
+        
+        return user;
+    }
 }
