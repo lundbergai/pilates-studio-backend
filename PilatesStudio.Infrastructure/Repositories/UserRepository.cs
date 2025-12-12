@@ -26,4 +26,11 @@ public class UserRepository(PilatesDbContext context) : IUserRepository
         
         return user;
     }
+    
+    public async Task<IEnumerable<User>> GetInstructorsByRoleAsync()
+    {
+        return await _context.Users
+            .Where(u => u.IsInstructor)
+            .ToListAsync();
+    }
 }

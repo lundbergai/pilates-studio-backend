@@ -19,4 +19,13 @@ public class UsersController(IUserRepository repository) : ControllerBase
         
         return Ok(UserDto.FromUsers(users));
     }
+    
+    [HttpGet("instructors")]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<InstructorDto>>> GetInstructors()
+    {
+        var instructors = await _repository.GetInstructorsByRoleAsync();
+    
+        return Ok(InstructorDto.FromUsers(instructors));
+    }
 }
