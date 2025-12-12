@@ -64,9 +64,9 @@ if (app.Environment.IsDevelopment())
     {
         var context = scope.ServiceProvider.GetRequiredService<PilatesDbContext>();
         await context.Database.MigrateAsync();
+        Seed.ApplyUsersSeed(context);
         Seed.ApplyClassTypesSeed(context);
         Seed.ApplyScheduledClassesSeed(context);
-        Seed.ApplyUsersSeed(context);
     }
     
     app.UseSwagger();

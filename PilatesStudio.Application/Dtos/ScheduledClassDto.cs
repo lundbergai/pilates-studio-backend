@@ -11,6 +11,7 @@ public record ScheduledClassDto(
     DateTime StartTime,
     int BookedSpots,
     string? Instructor,
+    int InstructorId,
     DateTime CreatedAt,
     DateTime UpdatedAt)
 {
@@ -23,7 +24,8 @@ public record ScheduledClassDto(
             sc.ClassType.Capacity ?? 0,
             sc.StartTime,
             sc.BookedSpots,
-            null,
+            sc.Instructor.FullName,
+            sc.Instructor.Id,
             sc.CreatedAt,
             sc.UpdatedAt
         );
