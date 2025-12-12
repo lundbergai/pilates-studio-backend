@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PilatesStudio.Application.Dtos;
 using PilatesStudio.Application.Interfaces;
@@ -11,6 +12,7 @@ public class ClassTypesController(IClassTypesRepository repository) : Controller
     private readonly IClassTypesRepository _repository = repository;
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<ClassTypeResponse>>> GetAll()
     {
         var classTypes = await _repository.GetClassTypesAsync();
@@ -19,6 +21,7 @@ public class ClassTypesController(IClassTypesRepository repository) : Controller
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ClassTypeResponse>> GetById(int id)
     {
         var classType = await _repository.GetClassTypeAsync(id);
@@ -29,6 +32,7 @@ public class ClassTypesController(IClassTypesRepository repository) : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "admin")]
     public async Task<ActionResult<ClassTypeResponse>> Create(CreateClassTypeDto dto)
     {
         var classType = await _repository.CreateClassTypeAsync(dto);
@@ -38,6 +42,7 @@ public class ClassTypesController(IClassTypesRepository repository) : Controller
     }
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<ActionResult<ClassTypeResponse>> Update(int id, UpdateClassTypeDto dto)
     {
         if (!dto.HasChanges())
@@ -49,9 +54,9 @@ public class ClassTypesController(IClassTypesRepository repository) : Controller
 
         return Ok(ClassTypeResponse.FromClassType(classType));
     }
-
-
+    
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var success = await _repository.DeleteClassTypeAsync(id);

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PilatesStudio.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using PilatesStudio.Infrastructure.Persistence;
 namespace PilatesStudio.Infrastructure.Migrations
 {
     [DbContext(typeof(PilatesDbContext))]
-    partial class PilatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251211094601_AddScheduledClassEntity")]
+    partial class AddScheduledClassEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,45 +85,6 @@ namespace PilatesStudio.Infrastructure.Migrations
                     b.HasIndex("ClassTypeId");
 
                     b.ToTable("ScheduledClasses");
-                });
-
-            modelBuilder.Entity("PilatesStudio.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClerkUserId")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsInstructor")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsMember")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PilatesStudio.Domain.Entities.ScheduledClass", b =>
