@@ -10,7 +10,7 @@ public class ClassTypesRepository(PilatesDbContext context) : IClassTypesReposit
 {
     private readonly PilatesDbContext _context = context;
 
-    public async Task<ICollection<ClassType>> GetClassTypesAsync()
+    public async Task<IEnumerable<ClassType>> GetClassTypesAsync()
     {
         return await _context.ClassTypes.ToListAsync();
     }
