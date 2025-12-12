@@ -1,5 +1,5 @@
-namespace PilatesStudio.Domain.Entities
-{
+namespace PilatesStudio.Domain.Entities;
+
     public class ClassType
     {
         public int Id { get; set; }
@@ -10,4 +10,3 @@ namespace PilatesStudio.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
-}

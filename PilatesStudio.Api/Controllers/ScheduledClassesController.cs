@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PilatesStudio.Application.Dtos;
 using PilatesStudio.Application.Interfaces;
-using PilatesStudio.Domain.Entities;
 
 namespace PilatesStudio.Api.Controllers;
 
