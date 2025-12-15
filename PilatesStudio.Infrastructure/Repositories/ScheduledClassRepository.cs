@@ -18,6 +18,14 @@ public class ScheduledClassRepository(PilatesDbContext context) : IScheduledClas
             .ToListAsync();
     }
     
+    public async Task<ScheduledClass?> GetByIdAsync(int id)
+    {
+        return await _context.ScheduledClasses
+            .Include(sc => sc.ClassType)
+            .Include(sc => sc.Instructor)
+            .FirstOrDefaultAsync(sc => sc.Id == id);
+    }
+    
     public async Task<ScheduledClass> CreateAsync(CreateScheduledClassDto dto)
     {
         var scheduledClass = new ScheduledClass
@@ -63,6 +71,17 @@ public class ScheduledClassRepository(PilatesDbContext context) : IScheduledClas
             .Include(sc => sc.ClassType)
             .Include(sc => sc.Instructor)
             .FirstAsync(sc => sc.Id == id);
+    }
+    
+    public async Task<ScheduledClass?> UpdateAsync(ScheduledClass scheduledClass)
+    {
+        _context.ScheduledClasses.Update(scheduledClass);
+        await _context.SaveChangesAsync();
+        
+        return await _context.ScheduledClasses
+            .Include(sc => sc.ClassType)
+            .Include(sc => sc.Instructor)
+            .FirstOrDefaultAsync(sc => sc.Id == scheduledClass.Id);
     }
     
     public async Task<bool> DeleteAsync(int id)

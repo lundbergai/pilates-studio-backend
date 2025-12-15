@@ -18,7 +18,9 @@ builder.Services.AddDbContext<PilatesDbContext>(options =>
 builder.Services.AddScoped<IClassTypesRepository, ClassTypesRepository>();
 builder.Services.AddScoped<IScheduledClassRepository, ScheduledClassRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
