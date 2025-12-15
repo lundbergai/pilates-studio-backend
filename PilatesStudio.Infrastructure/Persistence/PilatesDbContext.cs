@@ -8,4 +8,5 @@ public class PilatesDbContext(DbContextOptions<PilatesDbContext> options) : DbCo
     public DbSet<ClassType> ClassTypes { get; set; }
     public DbSet<ScheduledClass> ScheduledClasses { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
 }
