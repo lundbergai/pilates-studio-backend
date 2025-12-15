@@ -14,7 +14,7 @@ public class BookingsController(IBookingService bookingService) : ControllerBase
     private readonly IBookingService _bookingService = bookingService;
     
     [HttpGet("me")]
-    public async Task<ActionResult> GetMyBookings()
+    public async Task<ActionResult<IEnumerable<BookingDto>>> GetMyBookings()
     {
         try
         {
@@ -31,7 +31,7 @@ public class BookingsController(IBookingService bookingService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(CreateBookingDto dto)
+    public async Task<ActionResult<BookingDto>> Create(CreateBookingDto dto)
     {
         try
         {
@@ -48,7 +48,7 @@ public class BookingsController(IBookingService bookingService) : ControllerBase
     }
 
     [HttpDelete("{bookingId}")]
-    public async Task<ActionResult> Delete(int bookingId)
+    public async Task<IActionResult> Delete(int bookingId)
     {
         try
         {
