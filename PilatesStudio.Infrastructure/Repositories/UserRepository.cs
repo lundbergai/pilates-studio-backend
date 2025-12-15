@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PilatesStudio.Application.Dtos;
 using PilatesStudio.Application.Interfaces;
 using PilatesStudio.Domain.Entities;
 using PilatesStudio.Infrastructure.Persistence;
@@ -22,7 +23,6 @@ public class UserRepository(PilatesDbContext context) : IUserRepository
     public async Task<User> AddAsync(User user)
     {
         await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
         
         return user;
     }

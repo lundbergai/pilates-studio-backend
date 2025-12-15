@@ -6,6 +6,7 @@ using PilatesStudio.Application.Interfaces;
 using PilatesStudio.Application.Services;
 using PilatesStudio.Infrastructure.Persistence;
 using PilatesStudio.Infrastructure.Repositories;
+using PilatesStudio.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IUnitOfWork>(provider =>
+    new UnitOfWork(
+        provider.GetRequiredService<PilatesDbContext>(),
+        provider.GetRequiredService<IBookingRepository>(),
+        provider.GetRequiredService<IUserRepository>(),
+        provider.GetRequiredService<IScheduledClassRepository>()));
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

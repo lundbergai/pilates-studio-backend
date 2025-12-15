@@ -40,13 +40,8 @@ public class BookingRepository(PilatesDbContext context) : IBookingRepository
         };
 
         _context.Bookings.Add(booking);
-        await _context.SaveChangesAsync();
-
-        return await _context.Bookings
-            .Include(b => b.ScheduledClass)
-            .ThenInclude(sc => sc.ClassType)
-            .Include(b => b.ScheduledClass.Instructor)
-            .FirstOrDefaultAsync(b => b.Id == booking.Id);
+        
+        return booking;
     }
 
     public async Task<bool> DeleteAsync(int bookingId, int userId)
@@ -56,7 +51,6 @@ public class BookingRepository(PilatesDbContext context) : IBookingRepository
             return false;
 
         _context.Bookings.Remove(booking);
-        await _context.SaveChangesAsync();
         return true;
     }
 }
