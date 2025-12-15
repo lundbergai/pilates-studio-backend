@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PilatesStudio.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using PilatesStudio.Infrastructure.Persistence;
 namespace PilatesStudio.Infrastructure.Migrations
 {
     [DbContext(typeof(PilatesDbContext))]
-    partial class PilatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251215082738_AddBookingsTable")]
+    partial class AddBookingsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
